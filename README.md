@@ -1,17 +1,73 @@
-# event_checkin_app
+#  Smart Event Check-in & Crowd Management App
+## 👨‍💻 Author
 
-A new Flutter project.
+Kothariya Mohamad Arman
 
-## Getting Started
+##  Overview
 
-This project is a starting point for a Flutter application.
+This project is a Flutter-based mobile application designed to simplify event management by enabling fast and efficient participant check-in. It reduces manual effort, prevents duplicate entries, and provides real-time crowd monitoring.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+##  Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* QR Code & Manual Check-in
+* Duplicate Entry Prevention
+* Real-time Attendance Tracking
+* Crowd Capacity Monitoring (Safe / Moderate / Full)
+* Offline Support using local storage
+* Automatic Data Sync (when online)
+* Search and Logs for participants
+
+---
+
+##  Tech Stack
+
+* **Flutter** – UI development
+* **Dart** – Application logic
+* **Hive / SQLite** – Offline storage
+* **Riverpod / Provider** – State management
+* **QR Scanner Plugin** – Code scanning
+
+---
+
+##  Screens
+
+1. Event Setup Screen
+2. Check-in Screen (QR + Manual Entry)
+3. Dashboard Screen (Live Attendance Overview)
+4. Logs/Search Screen
+
+---
+
+##  How to Run
+
+```bash
+flutter pub get
+flutter run
+```
+
+---
+
+##  Sample Test IDs
+
+Use these IDs for testing:
+
+```
+P001
+P002
+P003
+```
+
+---
+
+##  Objectives
+
+* Reduce long queues during events
+* Prevent duplicate or unauthorized entries
+* Provide real-time insights into crowd levels
+* Ensure smooth operation even without internet
+
+---
+
+
