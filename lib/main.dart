@@ -9,6 +9,7 @@ import 'screens/logs_screen.dart';
 import 'providers/event_provider.dart';
 import 'models/event.dart';
 import 'models/participant.dart';
+import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,10 +36,8 @@ class EventCheckinApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Smart Event Check-in',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.darkTheme,
       initialRoute: context.read<EventProvider>().isEventSetup ? '/dashboard' : '/',
       routes: {
         '/': (context) => const EventSetupScreen(),

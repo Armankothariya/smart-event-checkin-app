@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import '../models/event.dart';
 import '../models/participant.dart';
@@ -14,6 +15,9 @@ class EventProvider with ChangeNotifier {
 
   int get checkedInCount => _participants.length;
   int get remainingCapacity => (_currentEvent?.maxCapacity ?? 0) - checkedInCount;
+  double get crowdRatio => (_currentEvent?.maxCapacity ?? 0) > 0 
+      ? (checkedInCount / _currentEvent!.maxCapacity) 
+      : 0;
 
   Future<void> init() async {
     var eventBox = await Hive.openBox<EventModel>('eventBox');
@@ -32,13 +36,14 @@ class EventProvider with ChangeNotifier {
     var participantBox = await Hive.openBox<Participant>('participantBox');
 
     await eventBox.clear();
-    await participantBox.clear(); // Clear previous event's participants
+    await participantBox.clear();
 
     _currentEvent = EventModel(name: name, maxCapacity: capacity, date: date);
     await eventBox.add(_currentEvent!);
     
     _participants = [];
     notifyListeners();
+    HapticFeedback.heavyImpact();
   }
 
   Future<String?> checkInParticipant(String id, String name) async {
@@ -47,11 +52,13 @@ class EventProvider with ChangeNotifier {
     // Check duplicate
     bool isDuplicate = _participants.any((p) => p.id == id);
     if (isDuplicate) {
+      HapticFeedback.vibrate();
       return "Participant already checked in!";
     }
 
     // Check capacity
     if (checkedInCount >= _currentEvent!.maxCapacity) {
+      HapticFeedback.vibrate();
       return "Event is at full capacity!";
     }
 
@@ -62,6 +69,18 @@ class EventProvider with ChangeNotifier {
     _participants.add(newParticipant);
     notifyListeners();
     
+    HapticFeedback.mediumImpact();
     return null; // Success
+  }
+
+  Future<void> clearAllData() async {
+    var eventBox = await Hive.openBox<EventModel>('eventBox');
+    var participantBox = await Hive.openBox<Participant>('participantBox');
+    await eventBox.clear();
+    await participantBox.clear();
+    _currentEvent = null;
+    _participants = [];
+    notifyListeners();
+    HapticFeedback.selectionClick();
   }
 }
