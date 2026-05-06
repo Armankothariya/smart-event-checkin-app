@@ -88,14 +88,5 @@ This project helps organizers manage attendance more accurately, avoid overcrowd
 
 
 
-```md
-<img width="834" height="469" alt="image" src="https://github.com/user-attachments/assets/bc443068-f418-4fe2-92b1-9a29b717a9d1" />
-<img width="847" height="476" alt="image" src="https://github.com/user-attachments/assets/24608b81-47ac-471a-88e7-290f6e415db8" />
-<img width="863" height="485" alt="image" src="https://github.com/user-attachments/assets/c1c271e9-2221-46f5-bebf-60cda10f6727" />
-<img width="725" height="407" alt="image" src="https://github.com/user-attachments/assets/5c7f4723-ca8b-4d9c-83ea-cecfc1358fb7" />
-<img width="734" height="413" alt="image" src="https://github.com/user-attachments/assets/170cfe73-e1b0-4af5-b2c9-2970e22f1bd9" />
-<img width="954" height="536" alt="image" src="https://github.com/user-attachments/assets/e3514a90-04df-49bf-b80f-8c0e68c03d02" />
-
-
 ```
 
