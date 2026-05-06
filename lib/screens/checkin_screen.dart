@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/event_provider.dart';
 
 class CheckinScreen extends StatefulWidget {
   const CheckinScreen({super.key});
@@ -10,13 +12,23 @@ class CheckinScreen extends StatefulWidget {
 class _CheckinScreenState extends State<CheckinScreen> {
   final _manualIdController = TextEditingController();
 
-  void _processCheckin(String id) {
+  Future<void> _processCheckin(String id) async {
     if (id.isEmpty) return;
-    // Placeholder logic for processing check-in
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Checking in participant: $id')),
-    );
-    _manualIdController.clear();
+
+    final error = await context.read<EventProvider>().checkInParticipant(id, "Participant $id");
+    
+    if (!mounted) return;
+
+    if (error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error), backgroundColor: Colors.red),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Successfully checked in: $id'), backgroundColor: Colors.green),
+      );
+      _manualIdController.clear();
+    }
   }
 
   @override
@@ -49,6 +61,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
                     Icon(Icons.qr_code_scanner, size: 80, color: Colors.grey),
                     SizedBox(height: 16),
                     Text('Camera / QR Scanner Placeholder'),
+                    Text('(Mobile Scanner package skipped for desktop compat)'),
                   ],
                 ),
               ),

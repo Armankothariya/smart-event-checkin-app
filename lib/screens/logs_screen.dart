@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/event_provider.dart';
+import 'package:intl/intl.dart';
 
 class LogsScreen extends StatefulWidget {
   const LogsScreen({super.key});
@@ -9,6 +12,7 @@ class LogsScreen extends StatefulWidget {
 
 class _LogsScreenState extends State<LogsScreen> {
   final _searchController = TextEditingController();
+  String _searchQuery = '';
   
   @override
   void dispose() {
@@ -18,51 +22,59 @@ class _LogsScreenState extends State<LogsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Placeholder list
-    final logs = [
-      {'id': '101', 'name': 'Participant A', 'time': '10:05 AM', 'status': 'Checked In'},
-      {'id': '102', 'name': 'Participant B', 'time': '10:12 AM', 'status': 'Checked In'},
-      {'id': '103', 'name': 'Participant C', 'time': '10:25 AM', 'status': 'Checked In'},
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Check-In Logs'),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                labelText: 'Search by ID or Name',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (value) {
-                // TODO: Implement search filter
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: logs.length,
-              itemBuilder: (context, index) {
-                final log = logs[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.green[100],
-                    child: const Icon(Icons.check, color: Colors.green),
+      body: Consumer<EventProvider>(
+        builder: (context, provider, child) {
+          final allLogs = provider.participants.reversed.toList(); // Newest first
+          final filteredLogs = allLogs.where((p) {
+            final lowerQuery = _searchQuery.toLowerCase();
+            return p.id.toLowerCase().contains(lowerQuery) || 
+                   p.name.toLowerCase().contains(lowerQuery);
+          }).toList();
+
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: const InputDecoration(
+                    labelText: 'Search by ID or Name',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
                   ),
-                  title: Text('${log['name']} (${log['id']})'),
-                  subtitle: Text('Time: ${log['time']}'),
-                  trailing: Text(log['status']!),
-                );
-              },
-            ),
-          ),
-        ],
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filteredLogs.length,
+                  itemBuilder: (context, index) {
+                    final log = filteredLogs[index];
+                    final timeString = DateFormat('hh:mm a').format(log.checkInTime);
+                    
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.green[100],
+                        child: const Icon(Icons.check, color: Colors.green),
+                      ),
+                      title: Text('${log.name} (${log.id})'),
+                      subtitle: Text('Time: $timeString'),
+                      trailing: const Text('Checked In'),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

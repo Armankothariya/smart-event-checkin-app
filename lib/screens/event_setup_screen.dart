@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/event_provider.dart';
 
 class EventSetupScreen extends StatefulWidget {
   const EventSetupScreen({super.key});
@@ -75,11 +77,13 @@ class _EventSetupScreenState extends State<EventSetupScreen> {
               ),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    // TODO: Save event details and navigate to dashboard
-                    Navigator.pushReplacementNamed(context, '/dashboard');
+                    await context.read<EventProvider>().setupEvent(eventName, maxCapacity, eventDate);
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(context, '/dashboard');
+                    }
                   }
                 },
                 child: const Text('Create Event & Continue'),
