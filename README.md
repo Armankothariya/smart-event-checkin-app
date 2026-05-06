@@ -1,73 +1,48 @@
-#  Smart Event Check-in & Crowd Management App
-## 👨‍💻 Author
+# Smart Event Check-in & Crowd Management App
 
-Kothariya Mohamad Arman
+## Author
 
-##  Overview
+Kothariya Mohamad Arman 
 
-This project is a Flutter-based mobile application designed to simplify event management by enabling fast and efficient participant check-in. It reduces manual effort, prevents duplicate entries, and provides real-time crowd monitoring.
+## Overview
 
----
-
-##  Features
-
-* QR Code & Manual Check-in
-* Duplicate Entry Prevention
-* Real-time Attendance Tracking
-* Crowd Capacity Monitoring (Safe / Moderate / Full)
-* Offline Support using local storage
-* Automatic Data Sync (when online)
-* Search and Logs for participants
+This project is a Flutter-based mobile application designed to simplify event management by enabling fast and efficient participant check-ins. It reduces manual effort, prevents duplicate entries, and provides real-time crowd monitoring.
 
 ---
 
-##  Tech Stack
+## Features
 
-* **Flutter** – UI development
-* **Dart** – Application logic
-* **Hive / SQLite** – Offline storage
-* **Riverpod / Provider** – State management
-* **QR Scanner Plugin** – Code scanning
+- QR code and manual check-in
+- Duplicate entry prevention
+- Real-time attendance tracking
+- Crowd capacity monitoring: Safe, Moderate, or Full
+- Offline support using local storage
+- Automatic data sync when online
+- Participant search and check-in logs
 
 ---
 
-##  Screens
+## Tech Stack
+
+- **Flutter** – UI development
+- **Dart** – Application logic
+- **Hive** – Offline storage
+- **Riverpod / Provider** – State management
+- **QR Scanner Plugin** – QR code scanning
+
+---
+
+## Screens
 
 1. Event Setup Screen
-2. Check-in Screen (QR + Manual Entry)
-3. Dashboard Screen (Live Attendance Overview)
-4. Logs/Search Screen
+2. Check-in Screen: QR and Manual Entry
+3. Dashboard Screen: Live Attendance Overview
+4. Logs and Search Screen
 
 ---
 
-##  How to Run
+## How to Run
 
 ```bash
 flutter pub get
 flutter run
-```
-
----
-
-##  Sample Test IDs
-
-Use these IDs for testing:
-
-```
-P001
-P002
-P003
-```
-
----
-
-##  Objectives
-
-* Reduce long queues during events
-* Prevent duplicate or unauthorized entries
-* Provide real-time insights into crowd levels
-* Ensure smooth operation even without internet
-
----
-
-
