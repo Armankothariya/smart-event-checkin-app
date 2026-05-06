@@ -54,23 +54,30 @@ class _LogsScreenState extends State<LogsScreen> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: filteredLogs.length,
-                  itemBuilder: (context, index) {
-                    final log = filteredLogs[index];
-                    final timeString = DateFormat('hh:mm a').format(log.checkInTime);
-                    
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.green[100],
-                        child: const Icon(Icons.check, color: Colors.green),
+                child: filteredLogs.isEmpty
+                    ? const Center(
+                        child: Text(
+                          'No participants found.',
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: filteredLogs.length,
+                        itemBuilder: (context, index) {
+                          final log = filteredLogs[index];
+                          final timeString = DateFormat('hh:mm a').format(log.checkInTime);
+                          
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.green[100],
+                              child: const Icon(Icons.check, color: Colors.green),
+                            ),
+                            title: Text('${log.name} (${log.id})'),
+                            subtitle: Text('Time: $timeString'),
+                            trailing: const Text('Checked In'),
+                          );
+                        },
                       ),
-                      title: Text('${log.name} (${log.id})'),
-                      subtitle: Text('Time: $timeString'),
-                      trailing: const Text('Checked In'),
-                    );
-                  },
-                ),
               ),
             ],
           );
